@@ -4,7 +4,7 @@ import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import javax.persistence.NoResultException;
+
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -32,14 +32,9 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User getUserByCar(String model, int series) {
-        try {
-            TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User WHERE userCar.model = :model and userCar.series = :series");
-            query.setParameter("model", model).setParameter("series", series);
-            return query.setMaxResults(1).getSingleResult();
-        } catch (NoResultException e) {
-            System.out.print("У автомобиля модели " + model + " и серии" + series + " нет владельца! - ");
-            return null;
-        }
+    public List<User> getUserByCar(String model, int series) {
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User WHERE userCar.model = :model and userCar.series = :series");
+        query.setParameter("model", model).setParameter("series", series);
+        return query.getResultList();
     }
 }

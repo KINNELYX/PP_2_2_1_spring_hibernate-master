@@ -1,14 +1,12 @@
 package hiber.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id")
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car userCar;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,7 +82,7 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' + " " + userCar.toString() +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
