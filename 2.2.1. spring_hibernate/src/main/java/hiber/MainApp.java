@@ -33,8 +33,9 @@ public class MainApp {
         }
 
         List<User> users1 = userService.getUserByCar("Model1", 1);
+        System.out.println("User(s) by car model 1 and series 1:");
         for (User user : users1) {
-            System.out.println("User by car model 1 and series 1: " + user);
+            System.out.println(user);
         }
         context.close();
     }
